@@ -42,7 +42,7 @@ public class SecurityConfig {
 
         httpSecurity.authorizeHttpRequests(
                 authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/auth/login","/auth/register", "/product", "/product/**"
+                        .requestMatchers("/auth/login","/auth/register", "/product", "/product/**", "/form", "/form/**"
 
                         )
                         .permitAll()
