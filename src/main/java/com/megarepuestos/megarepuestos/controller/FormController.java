@@ -55,4 +55,18 @@ public class FormController {
         boolean exists = formService.existsByPhoneNumber(phoneNumber);
         return ResponseEntity.ok(exists);
     }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Obtiene los formularios por id")
+    public ResponseEntity<FormDTO> getById(@PathVariable Long id) {
+        FormDTO response = formService.getById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Elimina un formulario", security = { @SecurityRequirement(name = "bearer-jwt") })
+    public ResponseEntity<String> delete(@PathVariable Long id)  {
+        formService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

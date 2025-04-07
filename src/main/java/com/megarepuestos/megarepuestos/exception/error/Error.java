@@ -5,6 +5,7 @@ public enum Error implements ErrorCode {
     USER_NOT_LOGIN("0002", "No hay ningun usuario logueado"),
     PRODUCT_NOT_FOUND("0003", "No se encontró el producto"),
     PHONE_NUMBER_ALREADY_REGISTERED("0004", "El número de teléfono ya se encuentra registrado"),
+    FORM_NOT_FOUND("0005", "No se encontró el formulario"),
     ;
 
     private final String code;

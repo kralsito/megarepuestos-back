@@ -14,4 +14,8 @@ public interface FormService {
 
     boolean existsByPhoneNumber(String phoneNumber);
 
+    FormDTO getById(Long id);
+
+    void delete(Long id);
+
 }
