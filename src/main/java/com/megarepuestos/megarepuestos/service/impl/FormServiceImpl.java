@@ -10,10 +10,13 @@ import com.megarepuestos.megarepuestos.service.dto.request.FormDTOin;
 import com.megarepuestos.megarepuestos.service.dto.request.FormFilterDTO;
 import com.megarepuestos.megarepuestos.service.dto.response.FormDTO;
 import com.megarepuestos.megarepuestos.service.mapper.FormMapper;
+import com.megarepuestos.megarepuestos.util.AuthSupport;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
@@ -39,6 +42,12 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
+    public FormDTO getById(Long id) {
+        Form form = getForm(id);
+        return FormMapper.MAPPER.toDto(form);
+    }
+
+    @Override
     public Page<FormDTO> getAll(FormFilterDTO filter, Pageable pageable) {
         Specification<Form> spec = FormSpec.getSpec(filter);
         Page<Form> page = formRepository.findAll(spec, pageable);
@@ -48,5 +57,23 @@ public class FormServiceImpl implements FormService {
     @Override
     public boolean existsByPhoneNumber(String phoneNumber) {
         return formRepository.existsByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public void delete(Long id)  {
+        Long userId = AuthSupport.getUserId();
+        Form form = getForm(id);
+        if(userId == null){
+            throw new BadRequestException(Error.USER_NOT_LOGIN);
+        }
+        formRepository.delete(form);
+    }
+
+    private Form getForm(Long id) {
+        Optional<Form> formOptional = formRepository.findById(id);
+        if (formOptional.isEmpty()) {
+            throw new BadRequestException(Error.FORM_NOT_FOUND);
+        }
+        return formOptional.get();
     }
 }
