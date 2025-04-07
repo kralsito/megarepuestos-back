@@ -6,6 +6,7 @@ public enum Error implements ErrorCode {
     PRODUCT_NOT_FOUND("0003", "No se encontró el producto"),
     PHONE_NUMBER_ALREADY_REGISTERED("0004", "El número de teléfono ya se encuentra registrado"),
     FORM_NOT_FOUND("0005", "No se encontró el formulario"),
+    BRAND_NOT_FOUND("0006", "No se encontró la marca"),
     ;
 
     private final String code;
