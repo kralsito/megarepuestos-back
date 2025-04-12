@@ -13,8 +13,8 @@ public class ReplacementSpec {
         return (root, query, cb) -> {
             final Collection<Predicate> predicates = new ArrayList<>();
 
-            if (filter.getName() != null){
-                predicates.add(cb.equal(root.get("name"), filter.getName()));
+            if (filter.getName() != null && !filter.getName().isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("name")), "%" + filter.getName().toLowerCase() + "%"));
             }
 
             if (filter.getBrand_id() != null){
